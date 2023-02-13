@@ -1,6 +1,9 @@
 import { async } from "@firebase/util";
 import { getAuth } from "firebase/auth";
-import { useState } from "react";
+import { 
+  useState, 
+//  useContext 
+} from "react";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils';
 import FormInput from "../form-input/ form-input.component";
 import './sign-up-form.styles.scss'
@@ -16,7 +19,8 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
-  console.log(formFields);
+  console.log('hit');
+
   
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -32,9 +36,8 @@ const SignUpForm = () => {
 
     try{
         const {user} = await createAuthUserWithEmailAndPassword (email, password);
-        console.log(user);
-
         await createUserDocumentFromAuth (user, {displayName});
+        console.log('sign up successful for user - ', user);
         resetFormFields();
     }catch(error){
         console.log('failed to create user - '+error);
@@ -46,6 +49,7 @@ const SignUpForm = () => {
     setFormFields({...formFields, [name]:value});
   };
   return (
+    
     <div className='sign-up-container'>
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
