@@ -55,8 +55,8 @@ export const CartContext = createContext({
     removeItemFromCart: () => { },
     clearItemFromCart: () => { },
     cartCount: 0,
-    cartTotal: 0
-})
+    cartTotal: 0,
+});
 
 export const CartProvider = ({ children }) => {
     const [isCartOpen, setIsCartOpen] = useState(false);
